@@ -2,9 +2,9 @@
 <view class="page">
 
   <view class="hero">
-    <text class="hero-label">符号逻辑研究</text>
-    <text class="hero-title title-serif">周易模拟</text>
-    <text class="hero-subtitle">随机数可视化 · 传统文化研究</text>
+    <text class="hero-label">六爻推演</text>
+    <text class="hero-title title-serif">周易纳甲</text>
+    <text class="hero-subtitle">基于《周易》纳甲筮法</text>
   </view>
 
   <view class="input-section">

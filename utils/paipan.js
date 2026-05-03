@@ -18,17 +18,16 @@ const { getTodayStemBranch } = require('./dateutil')
  * 主排盘函数
  * @param {Object} options
  * @param {string[]} options.yao - 6个爻类型数组（从初爻到上爻）
- *   可选值: "laoyang", "shaoyin", "shaoyang", "laoyin"
  * @param {string} [options.question] - 所问之事
  * @returns {Object} 完整排盘结果
  */
 function paipan(options) {
-  const { yao } = options
+  const { yao, question } = options
   if (!yao || yao.length !== 6) {
     throw new Error('需要6个爻数据')
   }
 
-  // 获取今日干支
+  // 获取今日干支（含月建）
   const today = getTodayStemBranch()
 
   // ── 1. 计算本卦二进制 ──
@@ -39,13 +38,12 @@ function paipan(options) {
   const hexagram = HEXAGRAM_BY_BINARY[binaryStr]
 
   // ── 3. 找出动爻位置 ──
-  // 位置从1开始（初爻=1, 上爻=6）
   const movingPositions = []
   yao.forEach((type, i) => {
     if (YAO_MOVING[type]) movingPositions.push(i + 1)
   })
 
-  // ── 4. 计算变卦（如有动爻） ──
+  // ── 4. 计算变卦 ──
   let changedHexagram = null
   let changedBinaryStr = null
   if (movingPositions.length > 0) {
@@ -99,47 +97,23 @@ function paipan(options) {
     })
   }
 
-  // ── 10. 吉凶评分 ──
-  const fortune = calculateFortune(yaoDetails, shiying, movingPositions)
+  // ── 10. 吉凶评分（v2 多维判定） ──
+  const fortune = calculateFortune(yaoDetails, shiying, movingPositions, question, today)
 
-  // ── 11. 组装返回 ──
   return {
-    hexagram: hexagram ? {
-      index: hexagram.index,
-      name: hexagram.name,
-      namePinyin: hexagram.namePinyin,
-      binary: hexagram.binary,
-      judgment: hexagram.judgment,
-      lines: hexagram.lines,
-      upperTrigram: hexagram.upperTrigram,
-      lowerTrigram: hexagram.lowerTrigram,
-      palace: hexagram.palace,
-      element: hexagram.element,
-      generation: hexagram.generation
-    } : null,
-    changed_hexagram: changedHexagram ? {
-      index: changedHexagram.index,
-      name: changedHexagram.name,
-      namePinyin: changedHexagram.namePinyin,
-      binary: changedHexagram.binary,
-      judgment: changedHexagram.judgment,
-      lines: changedHexagram.lines,
-      upperTrigram: changedHexagram.upperTrigram,
-      lowerTrigram: changedHexagram.lowerTrigram,
-      palace: changedHexagram.palace,
-      element: changedHexagram.element,
-      generation: changedHexagram.generation
-    } : null,
+    hexagram,
+    changedHexagram,
+    binaryStr,
+    changedBinaryStr,
+    movingPositions,
+    shiying,
     yao_details: yaoDetails,
-    moving_positions: movingPositions,
-    shiying: shiying,
+    fortune,          // 新: 包含 score, verdictText, dimensions, items, yongshen
+    today,            // 新: 传递干支数据
+    // 兼容旧版字段
+    tier: fortune.verdictText,
     score: fortune.score,
-    tier: fortune.tier,
-    tierColor: fortune.tierColor,
-    analysis: fortune.items,
-    day_stem: today.dayStem,
-    day_branch: today.dayBranch,
-    question: options.question || ''
+    analysis: fortune.items
   }
 }
 

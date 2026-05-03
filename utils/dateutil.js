@@ -1,67 +1,81 @@
 /**
- * 干支工具 - 推算当日天干地支
- * 基于公历日期推算六十甲子序号
+ * 干支工具 - 推算当日天干地支 + 月建
  */
-
 const { STEMS, BRANCHES } = require('../data/constants')
 
-/**
- * 计算某个公历日期的干支序号（六十甲子，0-based）
- * 基准：1900年1月1日 = 甲子日（序号0）
- * 但实际历法中1900年1月1日是庚子日...为了准确性，用查表法
- *
- * 简化方案：使用一个已知的基准日
- * 2000年1月1日 = 甲子日（已验证：2000-01-01 是甲子日）
- */
 function getDayIndex(year, month, day) {
-  // 计算从 2000-01-01 到目标日期的天数差
-  const base = new Date(2000, 0, 1) // month 0-based
-  const target = new Date(year, month - 1, day)
-  const diff = Math.round((target - base) / 86400000)
-  // 2000-01-01 的干支序号（甲子=0）
-  // 实际：2000-01-01 = 甲午日... 需要调整
-  // 让我直接用一个经过验证的基准：
-  // 2024-01-01 = 甲子日... 实际上根据历法
-  // 2024-01-01 = 甲子? 实际上 2024-01-01 是 甲子日（已验证）
-  // 用 2024-01-01 作为基准，其干支序号=0（甲子）
   const base2024 = new Date(2024, 0, 1)
-  const diff2024 = Math.round((target - base2024) / 86400000)
-  return ((diff2024 % 60) + 60) % 60
+  const target = new Date(year, month - 1, day)
+  const diff = Math.round((target - base2024) / 86400000)
+  return ((diff % 60) + 60) % 60
 }
 
 /**
  * 获取今天的干支
- * @returns {{ dayStem: string, dayStemIndex: number, dayBranch: string, dayBranchIndex: number }}
+ * @returns {{ dayStem, dayStemIndex, dayBranch, dayBranchIndex, dayIndex, monthBranch }}
  */
 function getTodayStemBranch() {
   const now = new Date()
-  const idx = getDayIndex(now.getFullYear(), now.getMonth() + 1, now.getDate())
+  const year = now.getFullYear()
+  const month = now.getMonth() + 1
+  const day = now.getDate()
+  const idx = getDayIndex(year, month, day)
+
+  const monthBranch = getMonthBranch(year, month, day)
+
   return {
     dayStem: STEMS[idx % 10],
     dayStemIndex: idx % 10,
     dayBranch: BRANCHES[idx % 12],
-    dayBranchIndex: idx % 12
+    dayBranchIndex: idx % 12,
+    dayIndex: idx,
+    monthBranch
   }
 }
 
 /**
- * 获取指定日期的干支
- * @param {number} year
- * @param {number} month
- * @param {number} day
- * @returns {{ dayStem, dayStemIndex, dayBranch, dayBranchIndex }}
+ * 获取月建（基于节气近似）
+ * 节气日期每年略有浮动，此处用平均值
  */
+function getMonthBranch(year, month, day) {
+  // 计算年内第几天
+  const start = new Date(year, 0, 0)
+  const now = new Date(year, month - 1, day)
+  const doy = Math.round((now - start) / 86400000)
+
+  // 节气近似日 (day of year)
+  const thresholds = [
+    [6,   '丑'],   // 小寒(1/6)
+    [35,  '寅'],   // 立春(2/4)
+    [65,  '卯'],   // 惊蛰(3/6)
+    [95,  '辰'],   // 清明(4/5)
+    [126, '巳'],   // 立夏(5/6)
+    [157, '午'],   // 芒种(6/6)
+    [188, '未'],   // 小暑(7/7)
+    [220, '申'],   // 立秋(8/8)
+    [251, '酉'],   // 白露(9/8)
+    [281, '戌'],   // 寒露(10/8)
+    [311, '亥'],   // 立冬(11/7)
+    [341, '子'],   // 大雪(12/7)
+  ]
+
+  for (let i = thresholds.length - 1; i >= 0; i--) {
+    if (doy >= thresholds[i][0]) return thresholds[i][1]
+  }
+  return '丑'  // 小寒前仍属丑月
+}
+
 function getStemBranch(year, month, day) {
   const idx = getDayIndex(year, month, day)
+  const monthBranch = getMonthBranch(year, month, day)
   return {
     dayStem: STEMS[idx % 10],
     dayStemIndex: idx % 10,
     dayBranch: BRANCHES[idx % 12],
-    dayBranchIndex: idx % 12
+    dayBranchIndex: idx % 12,
+    dayIndex: idx,
+    monthBranch
   }
 }
 
-module.exports = {
-  getTodayStemBranch,
-  getStemBranch
-}
+module.exports = { getTodayStemBranch, getStemBranch, getMonthBranch }
