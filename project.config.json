@@ -1,0 +1,22 @@
+{
+  "description": "六爻 - 传统文化符号逻辑研究工具",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "setting": {
+    "bundle": false,
+    "userConfirmedBundle": false,
+    "urlCheck": false,
+    "scopeDataCheck": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "trial",
+  "appid": "",
+  "projectname": "sixyao-app",
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
+}

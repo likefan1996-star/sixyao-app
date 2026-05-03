@@ -1,0 +1,88 @@
+<!-- 结果页 — 指标化与深度报告 v2.0 -->
+<view class="page">
+  
+  <view class="result-header">
+    <text class="result-label">推演结果报告</text>
+    <text class="result-title title-serif">{{guaName}}</text>
+    <view class="result-badge">{{guaType}}</view>
+  </view>
+
+  <!-- 新增：同步率指标区 (指标化吉凶) -->
+  <view class="metric-section card">
+    <view class="metric-header">
+      <text class="metric-label">逻辑同步率</text>
+      <text class="metric-value">{{syncRate}}%</text>
+    </view>
+    <view class="progress-container">
+      <view class="progress-bar" style="width: {{syncRate}}%"></view>
+    </view>
+    <text class="metric-desc">{{syncDesc}}</text>
+  </view>
+
+  <!-- 卦象可视化区 -->
+  <view class="gua-visual-container card">
+    <view class="gua-wrapper">
+      <block wx:for="{{yaoList}}" wx:key="index">
+        <view class="yao-row {{item.animClass}}" style="animation-delay: {{index * 0.15}}s">
+          <view class="yao-line {{item.type}}">
+            <view class="line-segment"></view>
+            <view class="line-segment" wx:if="{{item.type !== 'yang'}}"></view>
+          </view>
+          <view class="yao-info">
+            <text class="yao-pos">{{6 - index}}爻</text>
+            <text class="yao-status {{item.isChanged ? 'changed' : ''}}">{{item.status}}</text>
+            <text class="yao-element">{{item.element}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 深度分析区 -->
+  <view class="analysis-section">
+    
+    <!-- 概览层 -->
+    <view class="analysis-card card">
+      <view class="card-header">
+        <text class="card-title title-serif">核心结论</text>
+        <view class="card-icon">◈</view>
+      </view>
+      <view class="card-content">
+        <text class="analysis-text">{{summaryText}}</text>
+      </view>
+    </view>
+
+    <!-- 详情展开层 -->
+    <view class="detail-section">
+      <view class="detail-trigger" bindtap="toggleDetail">
+        <text>{{showDetail ? '收起详细分析' : '展开深度推演报告'}}</text>
+        <text class="trigger-icon">{{showDetail ? '▲' : '▼'}}</text>
+      </view>
+
+      <view class="detail-content {{showDetail ? 'active' : ''}}">
+        <!-- 逻辑推演 -->
+        <view class="detail-card card">
+          <text class="detail-title title-serif">逻辑推演</text>
+          <text class="detail-text">{{detailedLogic}}</text>
+        </view>
+
+        <!-- 古籍对照 -->
+        <view class="detail-card card">
+          <text class="detail-title title-serif">古籍原文</text>
+          <text class="quote-text">“{{quoteText}}”</text>
+          <text class="quote-source">— 《周易》</text>
+        </view>
+
+        <!-- 策略指南 -->
+        <view class="detail-card card">
+          <text class="detail-title title-serif">应对策略</text>
+          <text class="detail-text">{{strategyText}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-actions">
+    <button class="btn-primary" bindtap="goBack">重新模拟</button>
+  </view>
+</view>

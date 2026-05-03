@@ -1,0 +1,264 @@
+/** 结果页样式 — 指标化与深度报告 v2.0 **/
+.page {
+  padding-bottom: 100rpx;
+}
+
+.result-header {
+  text-align: center;
+  padding: 120rpx 60rpx 60rpx;
+}
+
+.result-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  letter-spacing: 4rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.result-title {
+  font-size: 72rpx;
+  color: var(--text-main);
+  letter-spacing: 4rpx;
+  line-height: 1.2;
+  display: block;
+  margin-bottom: 30rpx;
+}
+
+.result-badge {
+  display: inline-block;
+  padding: 8rpx 24rpx;
+  background: var(--accent-bronze);
+  color: #FFFFFF;
+  border-radius: 50px;
+  font-size: 24rpx;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* ===== 同步率指标区 ===== */
+.metric-section {
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20rpx;
+}
+
+.metric-label {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+}
+
+.metric-value {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: var(--accent-bronze);
+  font-family: "DIN Alternate", "Helvetica Neue", sans-serif;
+}
+
+.progress-container {
+  width: 100%;
+  height: 12rpx;
+  background: rgba(0,0,0,0.05);
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, var(--accent-stone), var(--accent-bronze));
+  border-radius: 6rpx;
+  transition: width 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.metric-desc {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* ===== 卦象可视化区 ===== */
+.gua-visual-container {
+  background: var(--card-bg);
+  display: flex;
+  justify-content: center;
+  padding: 60rpx 0;
+  margin-bottom: 40rpx;
+}
+
+.gua-wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 30rpx;
+  width: 500rpx;
+}
+
+.yao-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(20rpx);
+  animation: yaoGrow 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes yaoGrow {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.yao-line {
+  display: flex;
+  justify-content: center;
+  gap: 10rpx;
+  width: 240rpx;
+}
+
+.line-segment {
+  height: 16rpx;
+  background: var(--text-main);
+  border-radius: 8rpx;
+}
+
+.yao-line.yang .line-segment { width: 160rpx; }
+.yao-line.yin .line-segment { width: 60rpx; }
+
+.yao-info {
+  display: flex;
+  align-items: center;
+  gap: 30rpx;
+  font-size: 26rpx;
+  color: var(--text-secondary);
+}
+
+.yao-pos { width: 60rpx; text-align: right; }
+.yao-status { width: 80rpx; text-align: center; }
+.yao-status.changed { color: var(--accent-bronze); font-weight: 600; }
+.yao-element { width: 60rpx; text-align: left; color: var(--accent-stone); }
+
+/* ===== 分析区 ===== */
+.analysis-section {
+  padding: 0 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+}
+
+.analysis-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-title {
+  font-size: 36rpx;
+  color: var(--text-main);
+}
+
+.card-content {
+  font-size: 30rpx;
+  color: #4A4A4E;
+  line-height: 1.8;
+}
+
+.analysis-text {
+  display: block;
+  text-align: justify;
+}
+
+/* 详情展开区 */
+.detail-section {
+  margin-top: 20rpx;
+}
+
+.detail-trigger {
+  text-align: center;
+  padding: 30rpx;
+  font-size: 26rpx;
+  color: var(--accent-bronze);
+  background: rgba(179, 124, 92, 0.05);
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10rpx;
+  transition: var(--transition-smooth);
+}
+
+.detail-trigger:active {
+  opacity: 0.7;
+}
+
+.detail-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 32rpx;
+  margin-top: 32rpx;
+}
+
+.detail-content.active {
+  max-height: 2000rpx;
+  transition: max-height 0.5s cubic-bezier(1, 0, 1, 0);
+}
+
+.detail-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.detail-title {
+  font-size: 32rpx;
+  color: var(--text-main);
+  border-left: 8rpx solid var(--accent-bronze);
+  padding-left: 20rpx;
+}
+
+.detail-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.quote-text {
+  display: block;
+  font-family: "STSong", "SimSun", serif;
+  font-size: 32rpx;
+  color: var(--text-main);
+  text-align: center;
+  margin-bottom: 16rpx;
+  font-style: italic;
+}
+
+.quote-source {
+  display: block;
+  text-align: right;
+  font-size: 24rpx;
+  color: var(--text-secondary);
+}
+
+.footer-actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 80rpx 60rpx;
+}

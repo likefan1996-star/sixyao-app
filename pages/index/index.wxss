@@ -1,0 +1,255 @@
+/** 首页样式 — 细节调优版 v3.2 **/
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 60rpx;
+}
+
+.hero {
+  width: 100%;
+  padding: 140rpx 60rpx 40rpx;
+  text-align: center;
+}
+
+.hero-label {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  letter-spacing: 4rpx;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.hero-title {
+  font-size: 64rpx;
+  color: var(--text-main);
+  letter-spacing: 2rpx;
+  line-height: 1.2;
+  display: block;
+  margin-bottom: 24rpx;
+}
+
+.hero-subtitle {
+  font-size: 28rpx;
+  color: var(--text-secondary);
+  letter-spacing: 2rpx;
+  display: block;
+}
+
+.input-section {
+  width: 100%;
+  padding: 60rpx 60rpx;
+  box-sizing: border-box;
+}
+
+/* 增强输入框视觉引导 */
+.search-input {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border-radius: 50px;
+  padding: 0 32rpx;
+  height: 110rpx; /* 稍微增加高度 */
+  border: 2rpx solid rgba(0,0,0,0.1); /* 增强边框对比度 */
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); /* 增加轻微悬浮感 */
+  transition: var(--transition-smooth);
+}
+
+.search-input:active {
+  transform: scale(0.98);
+  border-color: var(--accent-bronze); /* 激活时变色 */
+  box-shadow: 0 4rpx 12rpx rgba(179, 124, 92, 0.2);
+}
+
+.search-icon {
+  font-size: 36rpx;
+  color: var(--text-secondary);
+  margin-right: 20rpx;
+}
+
+.input-field {
+  flex: 1;
+  height: 110rpx;
+  font-size: 32rpx;
+  color: var(--text-main);
+  background: transparent;
+}
+
+.interaction-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 60rpx 40rpx;
+}
+
+.feedback-matrix {
+  position: absolute;
+  top: -180rpx; /* 进一步上移，避开 Hero */
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20rpx;
+  width: 600rpx;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.feedback-pill {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 8rpx 20rpx;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50px;
+  border: 1rpx solid rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: translateY(10rpx);
+  animation: pillIn 0.4s ease-out forwards;
+  width: 180rpx;
+  box-sizing: border-box;
+}
+
+.feedback-index {
+  font-size: 18rpx;
+  color: var(--text-secondary);
+  opacity: 0.6;
+  font-weight: bold;
+}
+
+.feedback-val {
+  font-size: 22rpx;
+  color: var(--text-main);
+  opacity: 0.6;
+  font-family: "STSong", serif;
+}
+
+@keyframes pillIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.coin-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80rpx;
+  margin-top: 120rpx; /* 将铜币位置下移，给上方留白 */
+}
+
+.coin-group {
+  display: flex;
+  justify-content: center;
+  gap: 60rpx;
+  z-index: 2;
+}
+
+.coin {
+  width: 150rpx;
+  height: 150rpx;
+  position: relative;
+}
+
+.coin-img {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 8rpx 12rpx rgba(0,0,0,0.2));
+}
+
+.coin-overlay-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 38rpx;
+  color: #5C4210;
+  font-weight: 600;
+  font-family: "STKaiti", "KaiTi", serif;
+  z-index: 3;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+  pointer-events: none;
+}
+
+.stage-shadow {
+  width: 320rpx;
+  height: 40rpx;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.12) 0%, transparent 70%);
+  margin-top: -20rpx;
+  filter: blur(4px);
+}
+
+.status-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24rpx;
+}
+
+.step-indicator {
+  display: flex;
+  gap: 12rpx;
+}
+
+.step-dot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.1);
+  transition: var(--transition-smooth);
+}
+
+.step-dot.active {
+  background: var(--accent-bronze);
+  transform: scale(1.4);
+  box-shadow: 0 0 10rpx rgba(179, 124, 92, 0.4);
+}
+
+.cta-hint {
+  font-size: 26rpx;
+  color: var(--text-secondary);
+  letter-spacing: 2rpx;
+  transition: var(--transition-smooth);
+}
+
+.cta-hint.active {
+  color: var(--accent-bronze);
+  font-weight: 500;
+}
+
+.footer-legal {
+  width: 100%;
+  text-align: center;
+  padding: 40rpx;
+}
+
+.legal-text {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+/* 升级版：错落感抛投动画 */
+.toss .coin-1 {
+  animation: coinToss 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0s forwards !important;
+}
+.toss .coin-2 {
+  animation: coinToss 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards !important;
+}
+.toss .coin-3 {
+  animation: coinToss 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards !important;
+}
+
+@keyframes coinToss {
+  0% { transform: translateY(0) scale(1) rotateX(0deg); }
+  30% { transform: translateY(-120rpx) scale(1.1) rotateX(180deg) rotateZ(45deg); }
+  60% { transform: translateY(-40rpx) scale(0.9) rotateX(360deg) rotateZ(-45deg); }
+  100% { transform: translateY(0) scale(1) rotateX(0deg); }
+}

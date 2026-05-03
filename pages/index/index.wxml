@@ -1,0 +1,59 @@
+<!-- 首页 — 布局优化版 v3.1 -->
+<view class="page">
+
+  <view class="hero">
+    <text class="hero-label">符号逻辑研究</text>
+    <text class="hero-title title-serif">周易模拟</text>
+    <text class="hero-subtitle">随机数可视化 · 传统文化研究</text>
+  </view>
+
+  <view class="input-section">
+    <view class="search-input card-sm">
+      <text class="search-icon">⌕</text>
+      <input class="input-field" placeholder="输入您关注的逻辑方向..." 
+             bindinput="onInput" value="{{question}}" maxlength="50" 
+             placeholder-style="color:#A1A1A6" />
+    </view>
+  </view>
+
+  <view class="interaction-section" bindtap="onThrow">
+    <view class="coin-stage">
+      <!-- 升级后的反馈矩阵：2x3 排列 -->
+      <view class="feedback-matrix">
+        <view wx:for="{{throwHistory}}" wx:key="index" class="feedback-pill">
+          <text class="feedback-index">{{index + 1}}</text>
+          <text class="feedback-val">{{item}}</text>
+        </view>
+      </view>
+
+      <view class="coin-group {{animClass}}">
+        <view class="coin coin-1">
+          <image src="/images/coin.svg" class="coin-img" mode="aspectFit"></image>
+          <text class="coin-overlay-mark">乾</text>
+        </view>
+        <view class="coin coin-2">
+          <image src="/images/coin.svg" class="coin-img" mode="aspectFit"></image>
+          <text class="coin-overlay-mark">坤</text>
+        </view>
+        <view class="coin coin-3">
+          <image src="/images/coin.svg" class="coin-img" mode="aspectFit"></image>
+          <text class="coin-overlay-mark">道</text>
+        </view>
+      </view>
+      <view class="stage-shadow"></view>
+    </view>
+
+    <view class="status-area">
+      <view class="step-indicator" wx:if="{{throwing}}">
+        <view wx:for="{{6}}" wx:key="*this" class="step-dot {{currentStep > index ? 'active' : ''}}"></view>
+      </view>
+      <text class="cta-hint {{throwing ? 'active' : ''}}">
+        {{throwing ? '正在计算模拟路径...' : '点击铜钱 · 开始模拟推演'}}
+      </text>
+    </view>
+  </view>
+
+  <view class="footer-legal">
+    <text class="legal-text">本工具仅用于传统文化研究，结果仅供逻辑参考</text>
+  </view>
+</view>

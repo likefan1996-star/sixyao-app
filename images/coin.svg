@@ -1,0 +1,46 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- 金属基础渐变 -->
+    <radialGradient id="coinGrad" cx="30%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#F5E6C4" />
+      <stop offset="40%" stop-color="#C4A265" />
+      <stop offset="100%" stop-color="#8B6B3F" />
+    </radialGradient>
+    
+    <!-- 边缘高光渐变 -->
+    <linearGradient id="rimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- 内阴影滤镜 (用于刻字和方孔) -->
+    <filter id="innerShadow">
+      <feOffset dx="2" dy="2" />
+      <feGaussianBlur stdDeviation="2" result="offset-blur" />
+      <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+      <feFlood flood-color="black" flood-opacity="0.6" result="color" />
+      <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+      <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+    </filter>
+  </defs>
+
+  <!-- 外圈阴影 -->
+  <circle cx="100" cy="100" r="95" fill="rgba(0,0,0,0.2)" filter="blur(5px)" />
+
+  <!-- 铜币主体 -->
+  <circle cx="100" cy="100" r="90" fill="url(#coinGrad)" stroke="#B38B4D" stroke-width="2" />
+  
+  <!-- 表面高光层 -->
+  <circle cx="100" cy="100" r="90" fill="url(#rimGrad)" />
+
+  <!-- 刻字 (乾/坤/道) - 这里预留位置，由 JS 动态控制或通过多个 SVG 实现 -->
+  <!-- 为了通用，我们这里绘制一个通用的装饰环 -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#8B6B3F" stroke-width="1" stroke-dasharray="4,4" opacity="0.5" />
+
+  <!-- 方孔 - 具有内凹效果 -->
+  <rect x="75" y="75" width="50" height="50" rx="4" fill="#5C4210" filter="url(#innerShadow)" />
+  
+  <!-- 最终边缘高亮线 -->
+  <circle cx="100" cy="100" r="88" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1" />
+</svg>
