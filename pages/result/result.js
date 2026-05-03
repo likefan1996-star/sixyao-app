@@ -1,21 +1,23 @@
-/** 结果页逻辑 v3 — 多维分析报告 **/
+/** 结果页逻辑 — 经典版适配纯前端引擎 */
 const app = getApp()
 const { paipan } = require('../../utils/paipan')
 
 Page({
   data: {
     question: '',
-    guaName: '',
-    guaPalace: '',
-    verdictText: '',
-    verdictDesc: '',
-    verdictColor: '',
-    dimensions: [],
-    yaoList: [],
-    detailItems: [],
-    showDetail: false,
+    hexagram: {},
+    changedHexagram: {},
+    shiying: {},
+    yaoDetails: [],
+    auspicious: {},
+    analysisItems: [],
+    movingPositionsStr: '',
+    dayStem: '',
+    dayBranch: '',
+    monthBranch: '',
     yongshen: '',
-    quoteText: '',
+    verdictColor: '',
+    showDetail: false,
   },
 
   onLoad(options) {
@@ -28,58 +30,89 @@ Page({
       this.renderResult(result, question)
     } catch (e) {
       console.error('排盘出错', e)
-      this.renderFallback(question)
+      this.renderFallback(yaoData, question)
     }
   },
 
   renderResult(d, question) {
-    const guaName = d.hexagram?.name || '未知卦象'
-    const guaPalace = d.hexagram?.palace || ''
+    // 中文等级 → CSS class 映射
+    const levelMap = {
+      '顺畅': 'shunchang',
+      '平缓': 'pinghuan',
+      '阻滞': 'zuzhi',
+      '凶险': 'xiongxian',
+    }
 
-    // 爻位列表（从上爻到初爻展示）
-    const yaoList = [...(d.yao_details || [])].reverse().map((y, index) => ({
-      index: 6 - y.position,
-      type: y.binary === 1 ? 'yang' : 'yin',
-      status: y.type.includes('老') ? (y.binary === 1 ? '阳变' : '阴变') : (y.binary === 1 ? '阳爻' : '阴爻'),
-      isChanged: y.isMoving || false,
-      liuqin: y.liuqin || '',
-      liushen: y.liushen || '',
-      branch: y.branch || '',
-      animClass: 'yao-row-active'
+    // 爻数据（从上爻到初爻展示）
+    const displayYao = [...(d.yao_details || [])].reverse().map(y => ({
+      position: y.position,
+      value: y.binary === 1 ? 'yang' : 'yin',
+      stem: y.stem,
+      branch: y.branch,
+      liuqin: y.liuqin,
+      liushen: y.liushen,
+      is_moving: y.isMoving || false,
     }))
 
-    // 多维分析
-    const dimensions = d.fortune?.dimensions || []
+    const movingStr = (d.movingPositions || []).map(p => `第${p}爻`).join('、') || '无'
 
-    // 评分明细
-    const detailItems = d.fortune?.items || []
+    // 古风吉凶映射
+    const tierColors = {
+      '顺畅': '#2d7d46',
+      '平缓': '#b8860b',
+      '阻滞': '#c0392b',
+      '凶险': '#2c3e50',
+    }
 
     this.setData({
       question,
-      guaName,
-      guaPalace,
-      verdictText: d.fortune?.verdictText || '平缓',
-      verdictDesc: d.fortune?.verdictDesc || '',
-      verdictColor: d.fortune?.verdictColor || '#8E8E93',
-      dimensions,
-      yaoList,
-      detailItems,
-      yongshen: d.fortune?.yongshen || '世爻',
-      quoteText: d.hexagram?.judgment || '暂无古籍对照原文'
+      hexagram: {
+        name: d.hexagram?.name || '未知',
+        character: d.hexagram?.name?.charAt(0) || '☯',
+        palace: d.hexagram?.palace || '',
+        gua_ci: d.hexagram?.judgment || '',
+      },
+      changedHexagram: d.changedHexagram ? {
+        name: d.changedHexagram.name || '',
+        character: d.changedHexagram.name?.charAt(0) || '',
+      } : {},
+      shiying: {
+        shiyao: d.shiying?.shi || 0,
+        yingyao: d.shiying?.ying || 0,
+      },
+      yaoDetails: displayYao,
+      auspicious: {
+        level: d.fortune?.verdictText || '平缓',
+        score: d.fortune?.score || 0,
+      },
+      analysisItems: d.fortune?.items || [],
+      movingPositionsStr: movingStr,
+      dayStem: d.today?.dayStem || '',
+      dayBranch: d.today?.dayBranch || '',
+      monthBranch: d.today?.monthBranch || '',
+      yongshen: d.fortune?.yongshen || '',
+      verdictColor: tierColors[d.fortune?.verdictText] || '#86868b',
+      levelClass: 'level-' + (levelMap[d.fortune?.verdictText] || 'pinghuan'),
     })
   },
 
-  renderFallback(question) {
+  renderFallback(yaoData, question) {
+    const yaoDisplay = [...yaoData].reverse().map((t, i) => ({
+      position: 6 - i,
+      value: (t === 'laoyang' || t === 'shaoyang') ? 'yang' : 'yin',
+      liuqin: '', liushen: '', stem: '', branch: '',
+      is_moving: (t === 'laoyang' || t === 'laoyin'),
+    }))
+
     this.setData({
       question,
-      guaName: '排盘异常',
-      verdictText: '—',
-      verdictDesc: '排盘引擎处理异常，请尝试重新起卦',
-      verdictColor: '#8E8E93',
-      yaoList: [],
-      dimensions: [],
-      detailItems: ['引擎异常：请重试'],
-      quoteText: '—'
+      hexagram: { name: '排盘异常', character: '⚠', palace: '' },
+      changedHexagram: {},
+      shiying: {},
+      yaoDetails: yaoDisplay,
+      auspicious: { level: '—', score: 0 },
+      analysisItems: ['排盘引擎异常，请重试'],
+      movingPositionsStr: '—',
     })
   },
 
@@ -87,7 +120,7 @@ Page({
     this.setData({ showDetail: !this.data.showDetail })
   },
 
-  goBack() {
+  onEnd() {
     wx.navigateBack({ delta: 1 })
   }
 })

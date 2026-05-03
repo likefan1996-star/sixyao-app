@@ -4,18 +4,17 @@
     "ignore": [],
     "include": []
   },
-  "setting": {
-    "bundle": false,
-    "userConfirmedBundle": false,
-    "urlCheck": false,
-    "scopeDataCheck": false,
-    "minifyWXML": true
-  },
   "compileType": "miniprogram",
-  "libVersion": "trial",
-  "appid": "",
+  "libVersion": "3.15.2",
+  "appid": "wxc77b90e693725522",
   "projectname": "sixyao-app",
   "condition": {},
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true
+  },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2

@@ -1,89 +1,95 @@
-<!-- 结果页 — 多维分析报告 v3.0 -->
-<view class="page">
-  
-  <view class="result-header">
-    <text class="result-label">推演结果</text>
-    <text class="result-title title-serif">{{guaName}}</text>
-    <view class="result-badge" wx:if="{{guaPalace}}">{{guaPalace}}</view>
+<!-- 结果页 — 经典版 Apple Design Language -->
+<view class="page page-parchment">
+
+  <!-- 问题卡片 -->
+  <view class="utility-card">
+    <text class="card-label">您的问题</text>
+    <text class="card-value">{{question}}</text>
   </view>
 
-  <!-- 总评区（替代原来的同步率百分条） -->
-  <view class="verdict-section card">
-    <view class="verdict-banner" style="background-color: {{verdictColor}}">
-      <text class="verdict-text">{{verdictText}}</text>
-    </view>
-    <text class="verdict-desc">{{verdictDesc}}</text>
-    <text class="verdict-meta" wx:if="{{yongshen}}">用神：{{yongshen}}</text>
-  </view>
-
-  <!-- 三维度分析 -->
-  <view class="dims-section" wx:if="{{dimensions.length > 0}}">
-    <view class="dim-card dim-{{index}}" wx:for="{{dimensions}}" wx:key="index" style="animation-delay: {{index * 0.15}}s">
-      <view class="dim-header">
-        <text class="dim-icon">
-          <text wx:if="{{index === 0}}">⟳</text>
-          <text wx:if="{{index === 1}}">⊙</text>
-          <text wx:if="{{index === 2}}">⇄</text>
-        </text>
-        <text class="dim-label">{{item.label}}</text>
-      </view>
-      <text class="dim-value">{{item.value}}</text>
-      <text class="dim-detail">{{item.detail}}</text>
-    </view>
-  </view>
-
-  <!-- 卦象可视化区 -->
-  <view class="gua-visual-container card">
-    <view class="gua-wrapper">
-      <block wx:for="{{yaoList}}" wx:key="index">
-        <view class="yao-row {{item.animClass}}" style="animation-delay: {{index * 0.15}}s">
-          <view class="yao-line {{item.type}}">
-            <view class="line-segment"></view>
-            <view class="line-segment" wx:if="{{item.type !== 'yang'}}"></view>
-          </view>
-          <view class="yao-info">
-            <text class="yao-pos">{{item.index}}爻</text>
-            <text class="yao-status {{item.isChanged ? 'changed' : ''}}">{{item.status}}</text>
-            <text class="yao-liuqin">{{item.liuqin}}</text>
-          </view>
-        </view>
-      </block>
-    </view>
-  </view>
-
-  <!-- 详细分析区 -->
-  <view class="analysis-section">
-    <view class="analysis-card card">
-      <view class="card-header">
-        <text class="card-title title-serif">古籍原文</text>
-      </view>
-      <view class="card-content">
-        <text class="quote-text">“{{quoteText}}”</text>
-        <text class="quote-source">— 《周易》</text>
-      </view>
+  <!-- 本卦 — 产品卡片 -->
+  <view class="product-card">
+    <view class="product-card-header">
+      <text class="product-name">{{hexagram.name}}</text>
+      <text class="product-char">{{hexagram.character}}</text>
+      <view class="pill-tag" wx:if="{{hexagram.palace}}">{{hexagram.palace}}宫</view>
     </view>
 
-    <view class="detail-section">
-      <view class="detail-trigger" bindtap="toggleDetail">
-        <text>{{showDetail ? '收起评分明细' : '展开评分明细'}}</text>
-        <text class="trigger-icon">{{showDetail ? '▲' : '▼'}}</text>
-      </view>
+    <!-- 卦辞 -->
+    <view class="guaci-block" wx:if="{{hexagram.gua_ci}}">
+      <text class="guaci-text">{{hexagram.gua_ci}}</text>
+    </view>
 
-      <view class="detail-content {{showDetail ? 'active' : ''}}">
-        <view class="detail-card card">
-          <text class="detail-title title-serif">评分明细</text>
-          <view class="detail-list">
-            <view class="detail-item" wx:for="{{detailItems}}" wx:key="index">
-              <text class="detail-bullet">·</text>
-              <text class="detail-text">{{item}}</text>
+    <!-- 卦画 -->
+    <view class="hexagram-render">
+      <view wx:for="{{yaoDetails}}" wx:key="position" class="yao-row {{item.is_moving ? 'moving' : ''}}">
+        <text class="yao-tag">{{item.liushen}}</text>
+        <view class="yao-line-container">
+          <view class="yao-line {{item.value === 'yang' ? 'yang' : 'yin'}}">
+            <view wx:if="{{item.value === 'yang'}}" class="line-bar bar-solid"></view>
+            <view wx:else class="line-bar bar-split">
+              <view class="bar-part"></view>
+              <view class="bar-gap"></view>
+              <view class="bar-part"></view>
             </view>
           </view>
         </view>
+        <view class="yao-meta">
+          <text class="yao-stem">{{item.stem}}{{item.branch}}</text>
+          <text class="yao-qin {{item.is_moving ? 'moving' : ''}}">{{item.liuqin}}</text>
+        </view>
       </view>
     </view>
 
-    <view class="footer-actions">
-      <button class="btn-primary" bindtap="goBack">重新推演</button>
+    <view class="meta-bar">
+      <text>世爻{{shiying.shiyao}}位 · 应爻{{shiying.yingyao}}位 · 日{{dayStem}}{{dayBranch}} · 月{{monthBranch}}</text>
     </view>
+  </view>
+
+  <!-- 变卦 -->
+  <view class="utility-card" wx:if="{{changedHexagram.name}}">
+    <view class="card-row">
+      <text class="card-label">变卦</text>
+      <text class="card-value-sm">{{changedHexagram.name}} {{changedHexagram.character}}</text>
+    </view>
+    <text class="card-hint" wx:if="{{movingPositionsStr}}">动爻：{{movingPositionsStr}}</text>
+  </view>
+
+  <!-- 用神 -->
+  <view class="utility-card" wx:if="{{yongshen}}">
+    <view class="card-row">
+      <text class="card-label">用神</text>
+      <text class="card-value-sm" style="color:{{verdictColor}}">{{yongshen}}</text>
+    </view>
+  </view>
+
+  <!-- 吉凶 -->
+  <view class="utility-card">
+    <view class="card-row">
+      <text class="card-label">趋势参考</text>
+      <view class="auspicious-pill {{levelClass}}">{{auspicious.level}}</view>
+    </view>
+    <text class="card-hint" wx:if="{{auspicious.score}}">综合评分 {{auspicious.score}} 分</text>
+  </view>
+
+  <!-- 评分明细（折叠） -->
+  <view class="utility-card" wx:if="{{analysisItems.length}}">
+    <view class="detail-trigger" bindtap="toggleDetail">
+      <text class="card-label" style="margin-bottom:0">评分明细</text>
+      <text class="trigger-icon">{{showDetail ? '▲' : '▼'}}</text>
+    </view>
+    <view class="detail-content {{showDetail ? 'active' : ''}}">
+      <view class="analysis-item" wx:for="{{analysisItems}}" wx:key="*this">
+        <text class="analysis-body">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 免责 -->
+  <view class="disclaimer">仅供传统文化学习参考，不做决策依据</view>
+
+  <!-- 固定底部按钮 -->
+  <view class="sticky-bar">
+    <button class="btn-primary" bindtap="onEnd">回到首页</button>
   </view>
 </view>

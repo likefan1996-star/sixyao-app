@@ -1,255 +1,270 @@
-/** 首页样式 — 细节调优版 v3.2 **/
+/** 首页样式 — v0.1 经典卡通风格 */
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 60rpx;
+}
+
+.page-dark {
+  background: #1d1d1f;
 }
 
 .hero {
   width: 100%;
-  padding: 140rpx 60rpx 40rpx;
+  padding: 120rpx 40rpx 0;
   text-align: center;
 }
 
 .hero-label {
-  font-size: 26rpx;
-  color: var(--text-secondary);
+  font-size: 28rpx;
+  color: #86868b;
+  font-weight: 400;
   letter-spacing: 4rpx;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.hero-title {
+  font-size: 72rpx;
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: -2rpx;
+  line-height: 1.1;
   display: block;
   margin-bottom: 16rpx;
 }
 
-.hero-title {
-  font-size: 64rpx;
-  color: var(--text-main);
+.hero-subtitle {
+  font-size: 32rpx;
+  color: #86868b;
+  font-weight: 400;
   letter-spacing: 2rpx;
   line-height: 1.2;
   display: block;
-  margin-bottom: 24rpx;
-}
-
-.hero-subtitle {
-  font-size: 28rpx;
-  color: var(--text-secondary);
-  letter-spacing: 2rpx;
-  display: block;
+  margin-bottom: 10rpx;
 }
 
 .input-section {
   width: 100%;
-  padding: 60rpx 60rpx;
+  padding: 90rpx 40rpx 0;
   box-sizing: border-box;
 }
 
-/* 增强输入框视觉引导 */
 .search-input {
   display: flex;
   align-items: center;
-  background: #FFFFFF;
-  border-radius: 50px;
-  padding: 0 32rpx;
-  height: 110rpx; /* 稍微增加高度 */
-  border: 2rpx solid rgba(0,0,0,0.1); /* 增强边框对比度 */
-  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06); /* 增加轻微悬浮感 */
-  transition: var(--transition-smooth);
-}
-
-.search-input:active {
-  transform: scale(0.98);
-  border-color: var(--accent-bronze); /* 激活时变色 */
-  box-shadow: 0 4rpx 12rpx rgba(179, 124, 92, 0.2);
+  background: #2a2a3e;
+  border-radius: 9999rpx;
+  padding: 12rpx 28rpx;
+  height: 88rpx;
+  border: 1rpx solid rgba(255,255,255,0.08);
 }
 
 .search-icon {
-  font-size: 36rpx;
-  color: var(--text-secondary);
-  margin-right: 20rpx;
+  font-size: 32rpx;
+  color: #86868b;
+  margin-right: 16rpx;
 }
 
 .input-field {
   flex: 1;
-  height: 110rpx;
+  height: 88rpx;
   font-size: 32rpx;
-  color: var(--text-main);
+  color: #ffffff;
   background: transparent;
 }
 
-.interaction-section {
+.product-section {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 60rpx 40rpx;
+  padding: 30rpx 40rpx;
 }
 
-.feedback-matrix {
-  position: absolute;
-  top: -180rpx; /* 进一步上移，避开 Hero */
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20rpx;
-  width: 600rpx;
-  margin: 0 auto;
-  z-index: 1;
-}
-
-.feedback-pill {
-  display: flex;
-  align-items: center;
-  gap: 10rpx;
-  padding: 8rpx 20rpx;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50px;
-  border: 1rpx solid rgba(0,0,0,0.05);
-  opacity: 0;
-  transform: translateY(10rpx);
-  animation: pillIn 0.4s ease-out forwards;
-  width: 180rpx;
-  box-sizing: border-box;
-}
-
-.feedback-index {
-  font-size: 18rpx;
-  color: var(--text-secondary);
-  opacity: 0.6;
-  font-weight: bold;
-}
-
-.feedback-val {
-  font-size: 22rpx;
-  color: var(--text-main);
-  opacity: 0.6;
-  font-family: "STSong", serif;
-}
-
-@keyframes pillIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.coin-stage {
-  position: relative;
+.product-tile {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 80rpx;
-  margin-top: 120rpx; /* 将铜币位置下移，给上方留白 */
+  padding-bottom: 30rpx;
 }
 
 .coin-group {
   display: flex;
   justify-content: center;
-  gap: 60rpx;
-  z-index: 2;
+  gap: 48rpx;
+  transition: transform 0.3s;
 }
 
 .coin {
-  width: 150rpx;
-  height: 150rpx;
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
   position: relative;
-}
-
-.coin-img {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 8rpx 12rpx rgba(0,0,0,0.2));
-}
-
-.coin-overlay-mark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 38rpx;
-  color: #5C4210;
-  font-weight: 600;
-  font-family: "STKaiti", "KaiTi", serif;
-  z-index: 3;
-  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
-  pointer-events: none;
-}
-
-.stage-shadow {
-  width: 320rpx;
-  height: 40rpx;
-  background: radial-gradient(ellipse, rgba(0,0,0,0.12) 0%, transparent 70%);
-  margin-top: -20rpx;
-  filter: blur(4px);
-}
-
-.status-area {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 24rpx;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
+.coin-1 {
+  background: radial-gradient(circle at 35% 30%, #ffd700, #f0a500 45%, #cc8800);
+  box-shadow: 0 8rpx 28rpx rgba(255, 215, 0, 0.35), 0 4rpx 12rpx rgba(0,0,0,0.15), inset 0 -4rpx 8rpx rgba(0,0,0,0.1), inset 0 4rpx 8rpx rgba(255,255,200,0.3);
+  border: 3rpx solid #e6a800;
+}
+.coin-2 {
+  background: radial-gradient(circle at 35% 30%, #ffe4b5, #d4a562 45%, #b8860b);
+  box-shadow: 0 8rpx 28rpx rgba(212, 165, 98, 0.35), 0 4rpx 12rpx rgba(0,0,0,0.15), inset 0 -4rpx 8rpx rgba(0,0,0,0.1), inset 0 4rpx 8rpx rgba(255,255,200,0.3);
+  border: 3rpx solid #c8962e;
+}
+.coin-3 {
+  background: radial-gradient(circle at 35% 30%, #f0e6c8, #c4a265 45%, #a0762c);
+  box-shadow: 0 8rpx 28rpx rgba(160, 118, 44, 0.35), 0 4rpx 12rpx rgba(0,0,0,0.15), inset 0 -4rpx 8rpx rgba(0,0,0,0.1), inset 0 4rpx 8rpx rgba(255,255,200,0.3);
+  border: 3rpx solid #b8922e;
+}
+
+.coin-hole {
+  position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  background: #1d1d1f;
+  border-radius: 4rpx;
+  border: 1rpx solid rgba(255,255,255,0.1);
+  z-index: 2;
+}
+
+.coin-mark {
+  font-size: 36rpx;
+  color: #6b4f15;
+  font-weight: 700;
+  z-index: 3;
+  margin-top: -4rpx;
+  font-family: 'STKaiti', 'KaiTi', serif;
+  text-shadow: 0 1rpx 2rpx rgba(255,255,200,0.3);
+}
+.coin-1 .coin-mark { color: #7a5c10; }
+.coin-2 .coin-mark { color: #6b4f15; }
+.coin-3 .coin-mark { color: #5c4210; }
+
+.coin::before {
+  content: '';
+  position: absolute;
+  top: 12rpx;
+  left: 20rpx;
+  width: 44rpx;
+  height: 18rpx;
+  background: radial-gradient(ellipse, rgba(255,255,240,0.5), transparent);
+  border-radius: 50%;
+  z-index: 4;
+}
+.coin::after {
+  content: '';
+  position: absolute;
+  top: 28rpx;
+  right: 26rpx;
+  width: 10rpx;
+  height: 10rpx;
+  background: rgba(255,255,240,0.3);
+  border-radius: 50%;
+  z-index: 4;
+}
+
+.coin-sparkle {
+  position: absolute;
+  font-size: 24rpx;
+  z-index: 5;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+.coin-1 .coin-sparkle { top: -12rpx; right: -8rpx; }
+.coin-3 .coin-sparkle { bottom: -8rpx; left: -4rpx; animation-delay: 0.5s; }
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(20deg); }
+}
+
+.coin-1, .coin-2, .coin-3 { animation: coinFloat 3s ease-in-out infinite; }
+.coin-2 { animation-delay: 0.5s; }
+.coin-3 { animation-delay: 1s; }
+
+@keyframes coinFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12rpx); }
+}
+
+.shaking .coin { animation: coinCartoonShake 0.25s ease-in-out infinite !important; }
+.shaking .coin-1 { animation-delay: 0s !important; }
+.shaking .coin-2 { animation-delay: 0.1s !important; }
+.shaking .coin-3 { animation-delay: 0.2s !important; }
+
+@keyframes coinCartoonShake {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  20% { transform: translateY(-32rpx) rotate(-20deg); }
+  40% { transform: translateY(-10rpx) rotate(15deg); }
+  60% { transform: translateY(-22rpx) rotate(-10deg); }
+  80% { transform: translateY(-6rpx) rotate(8deg); }
+}
+
+.toss .coin { animation: coinToss 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards !important; }
+.toss .coin-1 { animation-delay: 0s !important; }
+.toss .coin-2 { animation-delay: 0.12s !important; }
+.toss .coin-3 { animation-delay: 0.24s !important; }
+
+@keyframes coinToss {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  25% { transform: translateY(-140rpx) scale(1.1) rotate(-30deg); opacity: 0.8; }
+  50% { transform: translateY(-80rpx) scale(0.95) rotate(20deg); opacity: 0.9; }
+  75% { transform: translateY(-30rpx) scale(1.05) rotate(-10deg); opacity: 1; }
+  100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+}
+
+.product-shadow {
+  width: 280rpx;
+  height: 36rpx;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.25) 0%, transparent 70%);
+  margin-top: 6rpx;
+  transition: all 0.3s;
+}
+.shaking .product-shadow, .toss .product-shadow { width: 200rpx; opacity: 0.4; }
 
 .step-indicator {
   display: flex;
-  gap: 12rpx;
+  gap: 10rpx;
+  margin-bottom: 24rpx;
+  margin-top: 20rpx;
 }
 
 .step-dot {
-  width: 10rpx;
-  height: 10rpx;
+  width: 14rpx;
+  height: 14rpx;
   border-radius: 50%;
-  background: rgba(0,0,0,0.1);
-  transition: var(--transition-smooth);
+  background: rgba(255,255,255,0.12);
+  transition: all 0.3s;
 }
-
 .step-dot.active {
-  background: var(--accent-bronze);
-  transform: scale(1.4);
-  box-shadow: 0 0 10rpx rgba(179, 124, 92, 0.4);
+  background: #f0a500;
+  box-shadow: 0 0 20rpx rgba(240,165,0,0.5);
+  transform: scale(1.3);
 }
 
 .cta-hint {
-  font-size: 26rpx;
-  color: var(--text-secondary);
+  font-size: 28rpx;
+  color: #86868b;
   letter-spacing: 2rpx;
-  transition: var(--transition-smooth);
+  transition: color 0.3s;
 }
-
-.cta-hint.active {
-  color: var(--accent-bronze);
-  font-weight: 500;
-}
+.cta-hint.active { color: #ffd700; }
 
 .footer-legal {
   width: 100%;
   text-align: center;
-  padding: 40rpx;
+  padding: 30rpx;
 }
-
 .legal-text {
-  font-size: 22rpx;
-  color: var(--text-secondary);
-  opacity: 0.6;
-}
-
-/* 升级版：错落感抛投动画 */
-.toss .coin-1 {
-  animation: coinToss 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0s forwards !important;
-}
-.toss .coin-2 {
-  animation: coinToss 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards !important;
-}
-.toss .coin-3 {
-  animation: coinToss 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards !important;
-}
-
-@keyframes coinToss {
-  0% { transform: translateY(0) scale(1) rotateX(0deg); }
-  30% { transform: translateY(-120rpx) scale(1.1) rotateX(180deg) rotateZ(45deg); }
-  60% { transform: translateY(-40rpx) scale(0.9) rotateX(360deg) rotateZ(-45deg); }
-  100% { transform: translateY(0) scale(1) rotateX(0deg); }
+  font-size: 20rpx;
+  color: rgba(255,255,255,0.2);
 }

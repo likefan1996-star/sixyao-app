@@ -1,4 +1,4 @@
-/** 首页逻辑 — 材质与音效升级版 v3.0 **/
+/** 首页 — 全屏沉浸式 v1.0 **/
 const app = getApp()
 
 Page({
@@ -6,7 +6,7 @@ Page({
     question: '',
     throwing: false,
     animClass: '',
-    stepText: '点击铜钱 · 开始模拟推演',
+    stepText: '点击铜钱 · 开始推演',
     currentStep: 0,
     results: [],
     throwHistory: [],
@@ -23,17 +23,13 @@ Page({
     } catch(e) {}
   },
 
-  /** 
-   * 升级版金属撞击音效
-   * 模拟：瞬时噪声(撞击) -> 多频共振(金属体) -> 指数衰减(余韵)
-   */
   playCoinSound() {
     try {
       if (!this.audioCtx) return
       const ctx = this.audioCtx
       const now = ctx.currentTime
 
-      // 1. 冲击波 (Impact): 模拟硬币触地瞬间的宽频噪声
+      // 冲击波
       const impactBuffer = ctx.createBuffer(1, ctx.sampleRate * 0.02, ctx.sampleRate)
       const impactData = impactBuffer.getChannelData(0)
       for (let i = 0; i < impactBuffer.length; i++) {
@@ -48,7 +44,6 @@ Page({
       impactGain.connect(ctx.destination)
       impactSrc.start(now)
 
-      // 2. 金属主共振 (Main Resonance): 1200Hz - 1800Hz
       const createResonance = (freq, gainVal, startOffset, decayTime) => {
         const osc = ctx.createOscillator()
         const gain = ctx.createGain()
@@ -63,12 +58,10 @@ Page({
         osc.stop(now + startOffset + decayTime)
       }
 
-      // 叠加多个谐波，模拟真实金属材质
-      createResonance(1400, 0.15, 0.002, 0.12) // 基频
-      createResonance(2800, 0.08, 0.005, 0.08) // 一倍频
-      createResonance(4200, 0.04, 0.01, 0.05)  // 二倍频
-      createResonance(800, 0.05, 0.01, 0.15)   // 低频共鸣
-
+      createResonance(1400, 0.15, 0.002, 0.12)
+      createResonance(2800, 0.08, 0.005, 0.08)
+      createResonance(4200, 0.04, 0.01, 0.05)
+      createResonance(800, 0.05, 0.01, 0.15)
     } catch(e) {
       console.error('音效合成失败', e)
     }
@@ -128,13 +121,13 @@ Page({
       count++
 
       const readable = {
-        'laoyang': '阳 · 变',
+        'laoyang': '阳·变',
         'shaoyang': '阳',
         'shaoyin': '阴',
-        'laoyin': '阴 · 变'
+        'laoyin': '阴·变'
       }
       const currentHistory = this.data.throwHistory || []
-      
+
       if (count < 6) {
         this.setData({
           currentStep: count,

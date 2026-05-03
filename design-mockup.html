@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>六爻首页设计提案</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: #f5f5f7; padding: 40px 20px; color: #1d1d1f; }
+  .header { text-align: center; margin-bottom: 40px; }
+  .header h1 { font-size: 28px; font-weight: 600; letter-spacing: 2px; }
+  .header p { color: #86868b; font-size: 14px; margin-top: 8px; }
+
+  .proposal { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+
+  .phone-frame {
+    width: 375px; background: #fff; border-radius: 40px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1); position: relative;
+    min-height: 700px;
+  }
+  .phone-frame .notch { height: 44px; background: #1d1d1f; display: flex; align-items: center; justify-content: center; }
+  .phone-frame .notch span { color: #fff; font-size: 12px; font-weight: 500; letter-spacing: 1px; }
+
+  .phone-frame .content { padding: 40px 28px 20px; }
+  
+  .phone-frame .app-title { display: block; margin-bottom: 32px; }
+  .phone-frame .app-title .label { font-size: 11px; color: #86868b; letter-spacing: 3px; text-transform: uppercase; }
+  .phone-frame .app-title .name { font-size: 34px; font-weight: 700; margin-top: 4px; letter-spacing: 1px; }
+
+  .tag { display: inline-block; font-size: 11px; color: #86868b; letter-spacing: 2px; margin-bottom: 20px; }
+
+  /* 方案 A */
+  .proposal-a .input-area { margin-bottom: 32px; }
+  .proposal-a .input-box { background: #f5f5f7; border-radius: 14px; padding: 0 16px; height: 44px; display: flex; align-items: center; border: 1px solid #e5e5ea; }
+  .proposal-a .input-box span { color: #c7c7cc; font-size: 15px; }
+  .proposal-a .coin-area { text-align: center; padding: 40px 0; }
+  .proposal-a .coins { display: flex; justify-content: center; gap: 16px; margin-bottom: 16px; }
+  .proposal-a .coin { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(145deg, #f5e6c4, #c4a265); box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #5c4210; font-weight: 600; font-family: serif; border: 1px solid #b38b4d; }
+  .proposal-a .cta-text { font-size: 14px; color: #86868b; margin-bottom: 8px; }
+  .proposal-a .history { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; min-height: 28px; }
+  .proposal-a .pill { padding: 4px 12px; border-radius: 20px; background: #f5f5f7; font-size: 12px; color: #1d1d1f; opacity: 0.7; }
+  .proposal-a .footer { text-align: center; font-size: 11px; color: #c7c7cc; margin-top: 24px; }
+
+  /* 方案 B: 全屏沉浸 (修正版 v2) */
+  .proposal-b .content { padding: 0; }
+  .proposal-b .hero { background: #1d1d1f; color: #fff; padding: 50px 28px 80px; text-align: center; position: relative; }
+  .proposal-b .hero .label { font-size: 11px; letter-spacing: 4px; opacity: 0.6; margin-bottom: 12px; display: block; }
+  .proposal-b .hero .title { font-size: 38px; font-weight: 700; letter-spacing: 3px; display: block; }
+  .proposal-b .hero .sub { font-size: 12px; opacity: 0.5; margin-top: 10px; display: block; }
+  
+  .proposal-b .mid-section { margin-top: -20px; padding: 0 20px; }
+  .proposal-b .card { background: #fff; border-radius: 20px; padding: 28px 24px 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+  .proposal-b .card .input-box { background: #f5f5f7; border-radius: 14px; padding: 0 20px; height: 48px; display: flex; align-items: center; border: 1.5px solid #e5e5ea; margin-bottom: 32px; }
+  .proposal-b .card .input-box span { color: #c7c7cc; font-size: 15px; }
+  .proposal-b .coin-section { text-align: center; padding: 0 0 20px; }
+  .proposal-b .coin-row { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; }
+  .proposal-b .coin { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(145deg, #f5e6c4, #c4a265); box-shadow: 0 6px 20px rgba(0,0,0,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #5c4210; font-weight: 700; font-family: serif; border: 1px solid #b38b4d; flex-shrink: 0; }
+  .proposal-b .cta-btn { display: block; width: 100%; background: #1d1d1f; color: #fff; border: none; border-radius: 30px; padding: 16px; font-size: 15px; font-weight: 500; margin-top: 4px; letter-spacing: 1px; }
+  .proposal-b .history-strip { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
+  .proposal-b .pill { padding: 5px 14px; border-radius: 20px; background: #f5f5f7; font-size: 12px; color: #1d1d1f; min-width: 54px; text-align: center; }
+
+  /* 方案 C: 引导式 */
+  .proposal-c .content { padding: 0; }
+  .proposal-c .hero { padding: 140px 28px 20px; text-align: center; }
+  .proposal-c .hero .tagline { font-size: 12px; color: #86868b; letter-spacing: 4px; margin-bottom: 12px; display: block; }
+  .proposal-c .hero .big-title { font-size: 32px; font-weight: 300; letter-spacing: 6px; display: block; }
+  .proposal-c .hero .big-title strong { font-weight: 700; }
+  .proposal-c .step-area { padding: 40px 28px; }
+  .proposal-c .step { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .proposal-c .step-num { width: 32px; height: 32px; border-radius: 50%; background: #f5f5f7; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #86868b; }
+  .proposal-c .step-num.active { background: #1d1d1f; color: #fff; }
+  .proposal-c .step-text { font-size: 15px; color: #1d1d1f; }
+  .proposal-c .step-text .hint { font-size: 12px; color: #86868b; display: block; }
+  .proposal-c .coin-section { text-align: center; padding: 24px 0; }
+  .proposal-c .coin-3d { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(145deg, #f5e6c4, #c4a265); box-shadow: 0 8px 24px rgba(0,0,0,0.15); display: inline-flex; align-items: center; justify-content: center; font-size: 18px; color: #5c4210; font-weight: 700; font-family: serif; border: 2px solid #b38b4d; }
+  .proposal-c .go-btn { display: block; margin: 24px auto 0; padding: 14px 48px; background: #1d1d1f; color: #fff; border: none; border-radius: 30px; font-size: 15px; font-weight: 500; letter-spacing: 2px; }
+
+  .labels { text-align: center; margin-top: 12px; font-size: 13px; font-weight: 600; letter-spacing: 2px; }
+  .recommend { background: #1d1d1f; color: #fff; padding: 3px 10px; border-radius: 10px; font-size: 10px; margin-left: 6px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>六爻首页 · 设计方案</h1>
+  <p>三种方向对比</p>
+</div>
+
+<div class="proposal">
+
+  <!-- 方案 A: 延续优化 -->
+  <div class="phone-frame proposal-a">
+    <div class="notch"><span>09:41</span></div>
+    <div class="content">
+      <div class="app-title">
+        <span class="label">六爻推演</span>
+        <span class="name">周易纳甲</span>
+      </div>
+      <span class="tag">基于《周易》纳甲筮法</span>
+      
+      <div class="input-area">
+        <div class="input-box"><span>⌕ 输入您关注的方向...</span></div>
+      </div>
+
+      <div class="history">
+        <span class="pill">1 阳</span>
+        <span class="pill">2 阴</span>
+        <span class="pill">3 阳·变</span>
+      </div>
+
+      <div class="coin-area">
+        <div class="coins">
+          <div class="coin">乾</div>
+          <div class="coin">坤</div>
+          <div class="coin">道</div>
+        </div>
+        <div class="cta-text">点击铜钱 · 开始推演</div>
+      </div>
+
+      <div class="footer">本工具仅用于传统文化研究</div>
+    </div>
+    <div class="labels">方案 A · 延续优化 <span class="recommend">推荐</span></div>
+  </div>
+
+  <!-- 方案 B: 全屏沉浸 (修正版) -->
+  <div class="phone-frame proposal-b">
+    <div class="notch"><span>09:41</span></div>
+    <div class="content">
+      <div class="hero">
+        <span class="label">六 爻 推 演</span>
+        <span class="title">周 易 纳 甲</span>
+        <span class="sub">基于《周易》纳甲筮法</span>
+      </div>
+      
+      <div class="mid-section">
+        <div class="card">
+          <div class="input-box"><span>⌕ 输入您关注的方向...</span></div>
+          
+          <!-- 摇卦记录: 用 pill 替代圆点，放在铜钱上方 -->
+          <div class="history-strip">
+            <span class="pill">1 阳</span>
+            <span class="pill">2 阴·变</span>
+            <span class="pill">3 阳</span>
+            <span class="pill">4 阴</span>
+          </div>
+
+          <div class="coin-section">
+            <div class="coin-row">
+              <div class="coin">乾</div>
+              <div class="coin">坤</div>
+              <div class="coin">道</div>
+            </div>
+          </div>
+
+          <button class="cta-btn">点击铜钱 · 开始推演</button>
+        </div>
+      </div>
+    </div>
+    <div class="labels">方案 B · 全屏沉浸 <span class="recommend">修正版</span></div>
+  </div>
+
+  <!-- 方案 C: 引导式 -->
+  <div class="phone-frame proposal-c">
+    <div class="notch"><span>09:41</span></div>
+    <div class="content">
+      <div class="hero">
+        <span class="tagline">六 爻 推 演</span>
+        <span class="big-title"><strong>周易</strong>纳甲</span>
+      </div>
+      
+      <div class="step-area">
+        <div class="step">
+          <div class="step-num active">1</div>
+          <div class="step-text">
+            输入问题
+            <span class="hint">明确您关注的逻辑方向</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            摇六次铜钱
+            <span class="hint">点击铜钱开始模拟</span>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            查看排盘结果
+            <span class="hint">多维分析报告</span>
+          </div>
+        </div>
+
+        <div class="coin-section">
+          <div class="coin-3d">乾</div>
+        </div>
+        <button class="go-btn">开始推演</button>
+      </div>
+    </div>
+    <div class="labels">方案 C · 引导式</div>
+  </div>
+
+</div>
+
+<p style="text-align:center;margin-top:32px;color:#86868b;font-size:13px;">建议优先方案 A（改动最小，保持一致性）+ 后续叠加 B 的沉浸感</p>
+</body>
+</html>

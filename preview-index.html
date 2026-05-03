@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>六爻预览</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;background:#1d1d1f;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center}
+
+.hero{width:100%;padding:120rpx 40rpx 0;text-align:center}
+.hero-label{font-size:14px;color:#86868b;letter-spacing:4px;margin-bottom:12px}
+.hero-title{font-size:36px;font-weight:600;letter-spacing:-1px;margin-bottom:10px}
+.hero-subtitle{font-size:16px;color:#86868b}
+
+.input-section{width:100%;padding:60px 20px 0}
+.search-input{display:flex;align-items:center;background:#2a2a3e;border-radius:999px;padding:0 20px;height:52px;border:1px solid rgba(255,255,255,0.08)}
+.search-icon{font-size:16px;color:#86868b;margin-right:12px}
+.input-field{flex:1;height:52px;font-size:16px;color:#fff;background:transparent;border:none;outline:none}
+
+.product-section{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 20px}
+.coin-group{display:flex;gap:24px}
+.coin{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;font-family:'STKaiti',serif;font-size:18px;font-weight:700}
+.coin-1{background:radial-gradient(circle at 35% 30%,#ffd700,#f0a500 45%,#cc8800);box-shadow:0 4px 16px rgba(255,215,0,0.35),inset 0 -2px 4px rgba(0,0,0,0.1),inset 0 2px 4px rgba(255,255,200,0.3);border:2px solid #e6a800}
+.coin-2{background:radial-gradient(circle at 35% 30%,#ffe4b5,#d4a562 45%,#b8860b);box-shadow:0 4px 16px rgba(212,165,98,0.35),inset 0 -2px 4px rgba(0,0,0,0.1),inset 0 2px 4px rgba(255,255,200,0.3);border:2px solid #c8962e}
+.coin-3{background:radial-gradient(circle at 35% 30%,#f0e6c8,#c4a265 45%,#a0762c);box-shadow:0 4px 16px rgba(160,118,44,0.35),inset 0 -2px 4px rgba(0,0,0,0.1),inset 0 2px 4px rgba(255,255,200,0.3);border:2px solid #b8922e}
+.coin-hole{position:absolute;width:18px;height:18px;background:#1d1d1f;border-radius:2px;border:1px solid rgba(255,255,255,0.1)}
+.coin-mark{z-index:2;margin-top:-2px}
+.coin-1 .coin-mark{color:#7a5c10}.coin-2 .coin-mark{color:#6b4f15}.coin-3 .coin-mark{color:#5c4210}
+
+.cta-hint{font-size:14px;color:#86868b;margin-top:24px;letter-spacing:2px}
+.footer{margin-top:auto;padding:20px;font-size:10px;color:rgba(255,255,255,0.2)}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-label">六爻 · 传统文化</div>
+  <div class="hero-title">周易六爻</div>
+  <div class="hero-subtitle">摇钱起卦 · 传统排盘</div>
+</div>
+<div class="input-section">
+  <div class="search-input">
+    <span class="search-icon">⌕</span>
+    <input class="input-field" placeholder="写下您想问的事情…" style="color:#fff">
+  </div>
+</div>
+<div class="product-section">
+  <div class="coin-group">
+    <div class="coin coin-1"><div class="coin-hole"></div><span class="coin-mark">乾</span></div>
+    <div class="coin coin-2"><div class="coin-hole"></div><span class="coin-mark">坤</span></div>
+    <div class="coin coin-3"><div class="coin-hole"></div><span class="coin-mark">道</span></div>
+  </div>
+  <div class="cta-hint">点击铜钱 · 开始摇卦</div>
+</div>
+<div class="footer">仅供传统文化学习参考</div>
+</body>
+</html>

@@ -1,59 +1,44 @@
-<!-- 首页 — 布局优化版 v3.1 -->
-<view class="page">
-
+<!-- 首页 — v0.1 经典卡通风格 -->
+<view class="page page-dark">
   <view class="hero">
-    <text class="hero-label">六爻推演</text>
-    <text class="hero-title title-serif">周易纳甲</text>
-    <text class="hero-subtitle">基于《周易》纳甲筮法</text>
+    <text class="hero-label">六爻 · 传统文化</text>
+    <text class="hero-title">周易六爻</text>
+    <text class="hero-subtitle">摇钱起卦 · 传统排盘</text>
   </view>
-
   <view class="input-section">
-    <view class="search-input card-sm">
+    <view class="search-input">
       <text class="search-icon">⌕</text>
-      <input class="input-field" placeholder="输入您关注的逻辑方向..." 
+      <input class="input-field" placeholder="写下您想问的事情…" 
              bindinput="onInput" value="{{question}}" maxlength="50" 
-             placeholder-style="color:#A1A1A6" />
+             placeholder-style="color:#86868b" />
     </view>
   </view>
-
-  <view class="interaction-section" bindtap="onThrow">
-    <view class="coin-stage">
-      <!-- 升级后的反馈矩阵：2x3 排列 -->
-      <view class="feedback-matrix">
-        <view wx:for="{{throwHistory}}" wx:key="index" class="feedback-pill">
-          <text class="feedback-index">{{index + 1}}</text>
-          <text class="feedback-val">{{item}}</text>
-        </view>
-      </view>
-
+  <view class="product-section" bindtap="onThrow">
+    <view class="product-tile">
       <view class="coin-group {{animClass}}">
         <view class="coin coin-1">
-          <image src="/images/coin.svg" class="coin-img" mode="aspectFit"></image>
-          <text class="coin-overlay-mark">乾</text>
+          <view class="coin-hole"></view>
+          <text class="coin-mark">乾</text>
+          <text class="coin-sparkle">✦</text>
         </view>
         <view class="coin coin-2">
-          <image src="/images/coin.svg" class="coin-img" mode="aspectFit"></image>
-          <text class="coin-overlay-mark">坤</text>
+          <view class="coin-hole"></view>
+          <text class="coin-mark">坤</text>
         </view>
         <view class="coin coin-3">
-          <image src="/images/coin.svg" class="coin-img" mode="aspectFit"></image>
-          <text class="coin-overlay-mark">道</text>
+          <view class="coin-hole"></view>
+          <text class="coin-mark">道</text>
+          <text class="coin-sparkle">✦</text>
         </view>
       </view>
-      <view class="stage-shadow"></view>
+      <view class="product-shadow"></view>
     </view>
-
-    <view class="status-area">
-      <view class="step-indicator" wx:if="{{throwing}}">
-        <view wx:for="{{6}}" wx:key="*this" class="step-dot {{currentStep > index ? 'active' : ''}}"></view>
-      </view>
-      <text class="cta-hint {{throwing ? 'active' : ''}}">
-        {{throwing ? '正在计算模拟路径...' : '点击铜钱 · 开始模拟推演'}}
-      </text>
+    <view class="step-indicator" wx:if="{{throwing}}">
+      <view wx:for="{{6}}" wx:key="*this" class="step-dot {{currentStep > index ? 'active' : ''}}"></view>
     </view>
+    <text class="cta-hint {{throwing ? 'active' : ''}}">{{throwing ? stepText : '点击铜钱 · 开始摇卦'}}</text>
   </view>
-
   <view class="footer-legal">
-    <text class="legal-text">本工具仅用于传统文化研究，结果仅供逻辑参考</text>
+    <text class="legal-text">仅供传统文化学习参考</text>
   </view>
 </view>
