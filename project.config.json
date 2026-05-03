@@ -8,7 +8,8 @@
     "bundle": false,
     "userConfirmedBundle": false,
     "urlCheck": false,
-    "scopeDataCheck": false
+    "scopeDataCheck": false,
+    "minifyWXML": true
   },
   "compileType": "miniprogram",
   "libVersion": "trial",
