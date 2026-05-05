@@ -27,11 +27,11 @@ const YAO_SYMBOL = {
   laoyin: '⚋'
 }
 
-// 爻类型 → 中文标记（动爻用○或×）
+// 爻类型 → 动爻标记（静爻不显示额外标记）
 const YAO_CHAR = {
   laoyang: '○',
-  shaoyin: '⚋',
-  shaoyang: '⚊',
+  shaoyin: '',
+  shaoyang: '',
   laoyin: '×'
 }
 
@@ -104,16 +104,6 @@ const LIUSHEN_ORDER = {
   '癸': ['玄武', '青龙', '朱雀', '勾陈', '腾蛇', '白虎']
 }
 
-// 吉凶六档
-const FORTUNE_TIERS = [
-  { min: 81, label: '大吉', color: '#ff4b4b' },
-  { min: 61, label: '上吉', color: '#ff6b35' },
-  { min: 41, label: '中吉', color: '#f7a823' },
-  { min: 21, label: '中平', color: '#8e8e93' },
-  { min: 1,  label: '下下', color: '#5e5e63' },
-  { min: -Infinity, label: '大凶', color: '#3a3a3c' }
-]
-
 // 六合：地支六合
 const SIX_COMBINATION = {
   '子': '丑', '丑': '子',
@@ -150,7 +140,6 @@ module.exports = {
   ELEMENT_OVERRIDES,
   SHIYING_MAP,
   LIUSHEN_ORDER,
-  FORTUNE_TIERS,
   SIX_COMBINATION,
   SIX_CLASH,
   LIUQIN_TYPES

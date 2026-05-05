@@ -1,22 +1,55 @@
 {
   "description": "六爻 - 传统文化符号逻辑研究工具",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "file",
+        "value": "DEVLOG.md"
+      },
+      {
+        "type": "file",
+        "value": "VERIFICATION_REPORT.md"
+      },
+      {
+        "type": "folder",
+        "value": "tmp_sensitive"
+      }
+    ],
     "include": []
   },
   "compileType": "miniprogram",
   "libVersion": "3.15.2",
-  "appid": "wxc77b90e693725522",
+  "appid": "wx702621a593355fed",
   "projectname": "sixyao-app",
   "condition": {},
   "setting": {
     "urlCheck": false,
     "es6": true,
     "enhance": true,
-    "postcss": true
+    "postcss": true,
+    "compileWorklet": false,
+    "minified": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
   },
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "simulatorPluginLibVersion": {}
 }

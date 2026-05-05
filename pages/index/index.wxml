@@ -1,44 +1,88 @@
-<!-- 首页 — v0.1 经典卡通风格 -->
-<view class="page page-dark">
+<view class="page page-paper">
   <view class="hero">
-    <text class="hero-label">六爻 · 传统文化</text>
     <text class="hero-title">周易六爻</text>
-    <text class="hero-subtitle">摇钱起卦 · 传统排盘</text>
+    <text class="hero-subtitle">传统文化学习用的六爻排盘演示</text>
   </view>
+
   <view class="input-section">
-    <view class="search-input">
-      <text class="search-icon">⌕</text>
-      <input class="input-field" placeholder="写下您想问的事情…" 
-             bindinput="onInput" value="{{question}}" maxlength="50" 
-             placeholder-style="color:#86868b" />
-    </view>
-  </view>
-  <view class="product-section" bindtap="onThrow">
-    <view class="product-tile">
-      <view class="coin-group {{animClass}}">
-        <view class="coin coin-1">
-          <view class="coin-hole"></view>
-          <text class="coin-mark">乾</text>
-          <text class="coin-sparkle">✦</text>
+    <view class="topic-card">
+      <view class="topic-accent"></view>
+      <view class="topic-content">
+        <view class="topic-heading">
+          <text class="topic-label">这次想看什么？</text>
+          <view class="topic-actions">
+            <text class="topic-pill">学习主题</text>
+            <view class="history-entry" bindtap="onOpenHistory">历史</view>
+          </view>
         </view>
-        <view class="coin coin-2">
-          <view class="coin-hole"></view>
-          <text class="coin-mark">坤</text>
+        <input class="input-field"
+               placeholder="写下一个想观察的问题"
+               bindinput="onInput"
+               value="{{question}}"
+               maxlength="50"
+               aria-label="写下一个想观察的问题"
+               placeholder-style="color:#86868b" />
+        <view class="topic-chips">
+          <view wx:for="{{topicTypes}}" wx:key="key"
+                class="topic-chip {{selectedTopic === item.key ? 'active' : ''}}"
+                data-key="{{item.key}}"
+                bindtap="onSelectTopic">{{item.label}}</view>
         </view>
-        <view class="coin coin-3">
-          <view class="coin-hole"></view>
-          <text class="coin-mark">道</text>
-          <text class="coin-sparkle">✦</text>
+        <view class="role-chips" wx:if="{{selectedTopic === 'relationship'}}">
+          <view wx:for="{{relationshipRoles}}" wx:key="key"
+                class="topic-chip role-chip {{selectedRole === item.key ? 'active' : ''}}"
+                data-key="{{item.key}}"
+                bindtap="onSelectRole">{{item.label}}</view>
         </view>
+        <text class="auto-note">不选也可以，系统会自动识别。</text>
       </view>
-      <view class="product-shadow"></view>
     </view>
-    <view class="step-indicator" wx:if="{{throwing}}">
-      <view wx:for="{{6}}" wx:key="*this" class="step-dot {{currentStep > index ? 'active' : ''}}"></view>
-    </view>
-    <text class="cta-hint {{throwing ? 'active' : ''}}">{{throwing ? stepText : '点击铜钱 · 开始摇卦'}}</text>
   </view>
+
+  <view class="gua-progress {{progressVisible ? 'visible' : ''}}">
+    <view class="gua-header">
+      <text class="gua-title">成卦中</text>
+      <text class="gua-count">{{currentStep}} / 6</text>
+    </view>
+    <view class="gua-dots" aria-label="六爻成卦进度">
+      <view wx:for="{{progressDots}}" wx:key="index"
+            class="gua-dot {{item.done ? 'done' : ''}} {{item.moving ? 'moving' : ''}}"></view>
+    </view>
+    <view class="gua-summary" wx:if="{{completedYaoSummary.length}}">
+      <text class="gua-summary-pill" wx:for="{{completedYaoSummary}}" wx:key="text">{{item.text}}</text>
+    </view>
+  </view>
+
+  <view class="ritual-hint">可先静心默念主题，再按住铜钱盏</view>
+
+  <view class="product-section casting-module {{animClass}}">
+    <text class="cta-hint {{holding || throwing ? 'active' : ''}}">{{stepText}}</text>
+    <view class="product-tile coin-stage">
+      <view class="coin-tray"
+            aria-label="按住铜钱盏摇卦"
+            bindtouchstart="onHoldStart"
+            bindtouchend="onHoldEnd"
+            bindtouchcancel="onHoldCancel">
+        <view class="coin-aura"></view>
+        <view class="tray-rim"></view>
+        <image class="coin-stack coin-stack-image"
+               src="/assets/images/coin-stack.svg"
+               mode="aspectFit"
+               show-menu-by-longpress="{{false}}" />
+        <view class="tray-shadow"></view>
+      </view>
+    </view>
+    <view class="module-support">
+      <view class="quick-row">
+        <view class="quick-complete"
+              hover-class="quick-complete-hover"
+              bindtap="onQuickComplete"
+              aria-label="一键完成六爻排盘">一键成卦</view>
+      </view>
+    </view>
+  </view>
+
   <view class="footer-legal">
-    <text class="legal-text">仅供传统文化学习参考</text>
+    <text class="legal-text">内容用于传统文化学习与自我梳理，不作为现实决策依据。</text>
   </view>
 </view>

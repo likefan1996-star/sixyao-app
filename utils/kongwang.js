@@ -17,19 +17,6 @@ const KONG_TABLE = [
 ]
 
 /**
- * 获取今日旬空的地支
- * @param {number} dayStemIndex - 天干序号 (0-9)
- * @returns {number[]} 空亡地支的索引数组
- */
-function getKongBranches(dayStemIndex) {
-  const tableIdx = Math.floor(dayStemIndex)  // 天干序号0-9 对应 旬表0
-  // 实际需要用六十甲子序号来查，但这里用天干做简化
-  // 精确做法：用六十甲子序号 ÷ 10 取整
-  // dayIndex % 60, 然后 Math.floor(dayIndex / 10)
-  return KONG_TABLE[tableIdx] || []
-}
-
-/**
  * 精确的旬空判定（使用六十甲子序号）
  * @param {number} dayIndex - 六十甲子序号 (0-59)
  * @returns {string[]} 空亡地支名称数组

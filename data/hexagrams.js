@@ -13,6 +13,11 @@
  *   palace       - 所属八宫
  *   element      - 宫五行
  *   generation   - 世应类型: pure/first/second/third/fourth/fifth/youhun/guihun
+ *
+ * 数据来源：
+ *   卦名、卦辞、爻辞以《周易》通行文本为基础整理。
+ *   八宫、纳甲、世应类型按京房易传系统的常见六爻排盘结构整理。
+ *   本数据用于传统文化学习与排盘结构演示，后续应继续用标准盘例复核。
  */
 
 // 辅助：构造卦对象

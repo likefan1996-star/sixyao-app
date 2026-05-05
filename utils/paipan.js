@@ -2,7 +2,7 @@
  * 排盘引擎 - 六爻排盘主入口
  *
  * 输入: 6次摇卦结果（爻类型数组）
- * 输出: 完整排盘结果（本卦、变卦、爻详细、世应、吉凶评分等）
+ * 输出: 完整排盘结果（本卦、变卦、爻详细、世应、结构评分等）
  */
 
 const { YAO_BINARY, YAO_MOVING, YAO_SYMBOL, YAO_CHAR } = require('../data/constants')
@@ -12,23 +12,30 @@ const { getShiYing } = require('./shiying')
 const { getLiuqinList } = require('./liuqin')
 const { getLiushenList } = require('./liushen')
 const { calculateFortune } = require('./fortune')
-const { getTodayStemBranch } = require('./dateutil')
+const { getTodayStemBranch, getStemBranchFromDateTime } = require('./dateutil')
+
+const VALID_YAO_TYPES = Object.keys(YAO_BINARY)
 
 /**
  * 主排盘函数
  * @param {Object} options
  * @param {string[]} options.yao - 6个爻类型数组（从初爻到上爻）
  * @param {string} [options.question] - 所问之事
+ * @param {string|Date} [options.dateTime] - 固定排盘时间，用于标准案例校验
  * @returns {Object} 完整排盘结果
  */
 function paipan(options) {
-  const { yao, question } = options
+  const { yao, question, dateTime } = options
   if (!yao || yao.length !== 6) {
     throw new Error('需要6个爻数据')
   }
+  const invalidYao = yao.find(type => !VALID_YAO_TYPES.includes(type))
+  if (invalidYao) {
+    throw new Error(`爻数据不合法: ${invalidYao}`)
+  }
 
   // 获取今日干支（含月建）
-  const today = getTodayStemBranch()
+  const today = dateTime ? getStemBranchFromDateTime(dateTime) : getTodayStemBranch()
 
   // ── 1. 计算本卦二进制 ──
   const binaryStr = yao.map(y => YAO_BINARY[y]).join('')
@@ -36,6 +43,9 @@ function paipan(options) {
 
   // ── 2. 查找本卦 ──
   const hexagram = HEXAGRAM_BY_BINARY[binaryStr]
+  if (!hexagram) {
+    throw new Error(`找不到对应卦象: ${binaryStr}`)
+  }
 
   // ── 3. 找出动爻位置 ──
   const movingPositions = []
@@ -55,16 +65,16 @@ function paipan(options) {
   }
 
   // ── 5. 纳甲 ──
-  const lowerTri = hexagram ? hexagram.lowerTrigram : ''
-  const upperTri = hexagram ? hexagram.upperTrigram : ''
+  const lowerTri = hexagram.lowerTrigram
+  const upperTri = hexagram.upperTrigram
   const najiaAssignments = getNajia(lowerTri, upperTri)
 
   // ── 6. 世应定位 ──
-  const generation = hexagram ? hexagram.generation : 'pure'
+  const generation = hexagram.generation
   const shiying = getShiYing(generation)
 
   // ── 7. 六亲装配 ──
-  const palaceElement = hexagram ? hexagram.element : ''
+  const palaceElement = hexagram.element
   const branches = najiaAssignments.map(a => a.branch)
   const liuqinList = getLiuqinList(palaceElement, branches)
 
@@ -97,7 +107,7 @@ function paipan(options) {
     })
   }
 
-  // ── 10. 吉凶评分（v2 多维判定） ──
+  // ── 10. 结构评分（v2 多维参考） ──
   const fortune = calculateFortune(yaoDetails, shiying, movingPositions, question, today)
 
   return {
@@ -107,6 +117,7 @@ function paipan(options) {
     changedBinaryStr,
     movingPositions,
     shiying,
+    yaoDetails,
     yao_details: yaoDetails,
     fortune,          // 新: 包含 score, verdictText, dimensions, items, yongshen
     today,            // 新: 传递干支数据

@@ -1,0 +1,73 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="shadow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 318) rotate(90) scale(42 210)">
+      <stop offset="0" stop-color="#2A1B0C" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#2A1B0C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="aura" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(360 194) rotate(90) scale(190 285)">
+      <stop offset="0" stop-color="#D7B77A" stop-opacity="0.22"/>
+      <stop offset="0.58" stop-color="#CBA66B" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#D7B77A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="coinLeft" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(220 156) rotate(120) scale(122)">
+      <stop offset="0" stop-color="#C08A45"/>
+      <stop offset="0.48" stop-color="#93602D"/>
+      <stop offset="1" stop-color="#5B3518"/>
+    </radialGradient>
+    <radialGradient id="coinMain" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(361 126) rotate(118) scale(150)">
+      <stop offset="0" stop-color="#C8944E"/>
+      <stop offset="0.48" stop-color="#986431"/>
+      <stop offset="1" stop-color="#60391B"/>
+    </radialGradient>
+    <radialGradient id="coinRight" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(492 184) rotate(120) scale(112)">
+      <stop offset="0" stop-color="#B87D3C"/>
+      <stop offset="0.5" stop-color="#89582A"/>
+      <stop offset="1" stop-color="#573217"/>
+    </radialGradient>
+    <filter id="drop" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#241307" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="360" cy="190" rx="285" ry="190" fill="url(#aura)"/>
+  <ellipse cx="360" cy="318" rx="210" ry="42" fill="url(#shadow)"/>
+
+  <g transform="translate(144 104) rotate(-13 88 88)" filter="url(#drop)">
+    <circle cx="88" cy="88" r="86" fill="url(#coinLeft)" stroke="#583215" stroke-width="4"/>
+    <circle cx="88" cy="88" r="72" stroke="#D0A05E" stroke-opacity="0.58" stroke-width="4"/>
+    <circle cx="88" cy="88" r="54" stroke="#70451F" stroke-opacity="0.36" stroke-width="2"/>
+    <rect x="66" y="66" width="44" height="44" rx="6" fill="#F5F5F7" stroke="#70451F" stroke-width="4"/>
+    <path d="M44 61C56 39 77 29 101 32" stroke="#E0B66E" stroke-opacity="0.72" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="62" cy="123" r="15" fill="#43502E" opacity="0.34"/>
+    <text x="88" y="42" text-anchor="middle" font-size="25" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.72">乾</text>
+    <text x="88" y="150" text-anchor="middle" font-size="25" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.68">通</text>
+    <text x="35" y="95" text-anchor="middle" font-size="23" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.66">宝</text>
+    <text x="141" y="95" text-anchor="middle" font-size="23" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.66">元</text>
+  </g>
+
+  <g transform="translate(250 48) rotate(4 112 112)" filter="url(#drop)">
+    <circle cx="112" cy="112" r="110" fill="url(#coinMain)" stroke="#583215" stroke-width="5"/>
+    <circle cx="112" cy="112" r="92" stroke="#D0A05E" stroke-opacity="0.62" stroke-width="5"/>
+    <circle cx="112" cy="112" r="69" stroke="#70451F" stroke-opacity="0.38" stroke-width="2"/>
+    <rect x="82" y="82" width="60" height="60" rx="8" fill="#F5F5F7" stroke="#70451F" stroke-width="5"/>
+    <path d="M58 74C74 45 101 31 132 35" stroke="#E0B66E" stroke-opacity="0.74" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="76" cy="143" r="15" fill="#43502E" opacity="0.3"/>
+    <text x="112" y="53" text-anchor="middle" font-size="31" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.74">坤</text>
+    <text x="112" y="190" text-anchor="middle" font-size="31" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.7">宝</text>
+    <text x="45" y="124" text-anchor="middle" font-size="28" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.68">元</text>
+    <text x="179" y="124" text-anchor="middle" font-size="28" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.68">通</text>
+  </g>
+
+  <g transform="translate(424 136) rotate(15 84 84)" filter="url(#drop)">
+    <circle cx="84" cy="84" r="82" fill="url(#coinRight)" stroke="#583215" stroke-width="4"/>
+    <circle cx="84" cy="84" r="68" stroke="#D0A05E" stroke-opacity="0.56" stroke-width="4"/>
+    <circle cx="84" cy="84" r="50" stroke="#70451F" stroke-opacity="0.36" stroke-width="2"/>
+    <rect x="62" y="62" width="44" height="44" rx="6" fill="#F5F5F7" stroke="#70451F" stroke-width="4"/>
+    <path d="M42 59C54 38 75 28 97 31" stroke="#E0B66E" stroke-opacity="0.7" stroke-width="11" stroke-linecap="round"/>
+    <circle cx="121" cy="71" r="14" fill="#43502E" opacity="0.28"/>
+    <text x="84" y="40" text-anchor="middle" font-size="25" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.72">易</text>
+    <text x="84" y="144" text-anchor="middle" font-size="25" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.68">宝</text>
+    <text x="33" y="92" text-anchor="middle" font-size="23" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.66">元</text>
+    <text x="135" y="92" text-anchor="middle" font-size="23" font-family="KaiTi, STKaiti, serif" font-weight="700" fill="#4A2A12" opacity="0.66">通</text>
+  </g>
+</svg>

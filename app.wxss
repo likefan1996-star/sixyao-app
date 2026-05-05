@@ -1,4 +1,6 @@
-/** 全局样式 */
+/** 全局样式 — Apple Design Language 适配版 */
 page {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  background: #ffffff;
+  color: #1d1d1f;
 }

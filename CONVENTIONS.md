@@ -17,7 +17,7 @@ D:\sixyao\                    # 开发工作目录（Windows）
   │   └── result/             # 结果页
   ├── utils/                  # 工具/引擎
   │   ├── paipan.js           # 排盘主引擎
-  │   ├── fortune.js          # 吉凶评分
+  │   ├── fortune.js          # 结构评分
   │   ├── najia.js            # 纳甲子模块
   │   ├── shiying.js          # 世应定位
   │   ├── liuqin.js           # 六亲装配
@@ -45,7 +45,7 @@ D:\sixyao-versions\           # 版本快照目录
   v0.1_FrameworkInit     - 工程骨架搭建
   v0.2_PaipanOverhaul    - 排盘引擎重构
   v0.3_UIOverhaul        - 用户体验大改
-  v0.4_AIIntegration     - AI 解卦集成
+  v0.4_LearningAssist    - 学习辅助集成
   v1.0_Launch            - 微信商店发布
 ```
 

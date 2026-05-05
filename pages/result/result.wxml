@@ -1,26 +1,65 @@
-<!-- 结果页 — 经典版 Apple Design Language -->
-<view class="page page-parchment">
+<!-- 结果页 — 卦象结构参考 -->
+<view class="page page-paper">
 
-  <!-- 问题卡片 -->
-  <view class="utility-card">
-    <text class="card-label">您的问题</text>
-    <text class="card-value">{{question}}</text>
+  <view class="question-strip">
+    <text class="strip-label">所问之事</text>
+    <text class="strip-value">{{question || '未填写问题'}}</text>
   </view>
 
-  <!-- 本卦 — 产品卡片 -->
-  <view class="product-card">
-    <view class="product-card-header">
-      <text class="product-name">{{hexagram.name}}</text>
-      <text class="product-char">{{hexagram.character}}</text>
-      <view class="pill-tag" wx:if="{{hexagram.palace}}">{{hexagram.palace}}宫</view>
+  <view class="fortune-hero level-{{tier.key}}">
+    <view class="fortune-accent"></view>
+    <view class="fortune-topline">
+      <text class="fortune-kicker">当前倾向</text>
+      <text class="fortune-brand">六爻文化参考</text>
+    </view>
+    <view class="fortune-main">
+      <text class="fortune-name">{{tier.displayName || tier.name}}</text>
+    </view>
+    <text class="fortune-advice">{{consumerConclusion || tier.advice}}</text>
+
+    <view class="reading-guide-compact" wx:if="{{readingGuide.overview}}">
+      <view class="guide-row compact">
+        <text class="guide-label">怎么看</text>
+        <text class="guide-body">{{readingGuide.overview}}</text>
+      </view>
+      <view class="guide-row compact">
+        <text class="guide-label">适合</text>
+        <text class="guide-body">{{readingGuide.suitable}}</text>
+      </view>
+      <view class="guide-row compact">
+        <text class="guide-label">注意</text>
+        <text class="guide-body">{{readingGuide.caution}}</text>
+      </view>
     </view>
 
-    <!-- 卦辞 -->
-    <view class="guaci-block" wx:if="{{hexagram.gua_ci}}">
-      <text class="guaci-text">{{hexagram.gua_ci}}</text>
+    <view class="scale-track">
+      <view wx:for="{{tierScale}}" wx:key="key" class="scale-segment {{item.active ? 'active' : ''}}">
+        <text class="scale-name">{{item.displayName || item.name}}</text>
+        <view wx:if="{{item.active}}" class="segment-marker"></view>
+      </view>
     </view>
+    <text class="range-text">参考区间：{{tier.range}}</text>
+    <text class="fortune-signature">来自：周易六爻 · 文化参考</text>
+  </view>
 
-    <!-- 卦画 -->
+  <view class="section-card">
+    <view class="section-header">
+      <text class="section-title">本卦</text>
+      <view class="pill-tag">{{hexagram.palace}}</view>
+    </view>
+    <view class="hex-title-row">
+      <text class="hex-name">{{hexagram.name}}</text>
+      <text class="hex-char">{{hexagram.character}}</text>
+    </view>
+    <text class="guaci-text" wx:if="{{hexagram.gua_ci}}">{{hexagram.gua_ci}}</text>
+    <text class="source-note" wx:if="{{hexagram.source}}">{{hexagram.source}}</text>
+  </view>
+
+  <view class="section-card plate-card">
+    <view class="section-header">
+      <text class="section-title">专业盘面</text>
+      <text class="section-note">世{{shiying.shiPosition}} · 应{{shiying.yingPosition}} · 日{{dayStem}}</text>
+    </view>
     <view class="hexagram-render">
       <view wx:for="{{yaoDetails}}" wx:key="position" class="yao-row {{item.is_moving ? 'moving' : ''}}">
         <text class="yao-tag">{{item.liushen}}</text>
@@ -40,56 +79,59 @@
         </view>
       </view>
     </view>
-
-    <view class="meta-bar">
-      <text>世爻{{shiying.shiyao}}位 · 应爻{{shiying.yingyao}}位 · 日{{dayStem}}{{dayBranch}} · 月{{monthBranch}}</text>
-    </view>
   </view>
 
-  <!-- 变卦 -->
-  <view class="utility-card" wx:if="{{changedHexagram.name}}">
-    <view class="card-row">
-      <text class="card-label">变卦</text>
-      <text class="card-value-sm">{{changedHexagram.name}} {{changedHexagram.character}}</text>
+  <view class="section-card deep-reading-card" wx:if="{{deepReading.summary}}">
+    <view class="section-header">
+      <text class="section-title">具体卦象解读</text>
+      <text class="deep-pill">{{deepReading.badge}}</text>
     </view>
-    <text class="card-hint" wx:if="{{movingPositionsStr}}">动爻：{{movingPositionsStr}}</text>
+    <text class="deep-summary">{{deepReading.summary}}</text>
+    <view class="deep-list" wx:if="{{deepReading.items.length}}">
+      <view class="deep-item" wx:for="{{deepReading.items}}" wx:key="label">
+        <text class="deep-label">{{item.label}}</text>
+        <text class="deep-body">{{item.body}}</text>
+      </view>
+    </view>
+    <text class="deep-footer" wx:if="{{deepReading.footer}}">{{deepReading.footer}}</text>
   </view>
 
-  <!-- 用神 -->
-  <view class="utility-card" wx:if="{{yongshen}}">
-    <view class="card-row">
-      <text class="card-label">用神</text>
-      <text class="card-value-sm" style="color:{{verdictColor}}">{{yongshen}}</text>
+  <view class="section-card term-card" wx:if="{{termTips.length}}">
+    <view class="section-header">
+      <text class="section-title">术语小抄</text>
     </view>
-  </view>
-
-  <!-- 吉凶 -->
-  <view class="utility-card">
-    <view class="card-row">
-      <text class="card-label">趋势参考</text>
-      <view class="auspicious-pill {{levelClass}}">{{auspicious.level}}</view>
-    </view>
-    <text class="card-hint" wx:if="{{auspicious.score}}">综合评分 {{auspicious.score}} 分</text>
-  </view>
-
-  <!-- 评分明细（折叠） -->
-  <view class="utility-card" wx:if="{{analysisItems.length}}">
-    <view class="detail-trigger" bindtap="toggleDetail">
-      <text class="card-label" style="margin-bottom:0">评分明细</text>
-      <text class="trigger-icon">{{showDetail ? '▲' : '▼'}}</text>
-    </view>
-    <view class="detail-content {{showDetail ? 'active' : ''}}">
-      <view class="analysis-item" wx:for="{{analysisItems}}" wx:key="*this">
-        <text class="analysis-body">{{item}}</text>
+    <view class="term-grid">
+      <view class="term-item" wx:for="{{termTips}}" wx:key="term">
+        <text class="term-name">{{item.term}}</text>
+        <text class="term-meaning">{{item.meaning}}</text>
       </view>
     </view>
   </view>
 
-  <!-- 免责 -->
-  <view class="disclaimer">仅供传统文化学习参考，不做决策依据</view>
+  <view class="section-card" wx:if="{{analysisItems.length}}">
+    <view class="section-header">
+      <text class="section-title">结构依据</text>
+    </view>
+    <view class="analysis-list">
+      <view class="analysis-item" wx:for="{{analysisItems}}" wx:key="title">
+        <text class="analysis-title">{{item.title}}</text>
+        <text class="analysis-body">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
 
-  <!-- 固定底部按钮 -->
+  <view class="disclaimer">内容用于传统文化学习与自我梳理，不作为现实决策依据。</view>
+
+  <view class="section-card source-card">
+    <view class="source-accent"></view>
+    <view class="section-header source-header">
+      <text class="section-title">资料来源</text>
+    </view>
+    <text class="source-copy">卦辞爻辞参考《周易》通行文本；纳甲、世应、六亲、六神按常见六爻排盘体系整理。</text>
+    <text class="source-copy muted">当前页面为文化学习参考。</text>
+  </view>
+
   <view class="sticky-bar">
-    <button class="btn-primary" bindtap="onEnd">回到首页</button>
+    <button class="btn-primary" bindtap="onEnd">结束 · 回到首页</button>
   </view>
 </view>

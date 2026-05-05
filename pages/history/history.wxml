@@ -1,0 +1,31 @@
+<view class="history-page">
+  <view class="history-hero">
+    <text class="eyebrow">本机回看</text>
+    <text class="title">历史记录</text>
+    <text class="subtitle">历史记录仅保存在本机。</text>
+  </view>
+
+  <view class="record-list" wx:if="{{hasRecords}}">
+    <view wx:for="{{records}}" wx:key="id"
+          class="record-card"
+          data-id="{{item.id}}"
+          bindtap="onOpenRecord">
+      <view class="record-main">
+        <text class="record-question">{{item.displayQuestion}}</text>
+        <text class="record-hexagram">{{item.displayHexagram}}</text>
+      </view>
+      <view class="record-meta">
+        <text class="record-tier">{{item.displayTier}}</text>
+        <text class="record-time">{{item.displayTime}}</text>
+      </view>
+      <view class="delete-record"
+            data-id="{{item.id}}"
+            catchtap="onDeleteRecord">移除</view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:else>
+    <text class="empty-title">暂无本机记录</text>
+    <text class="empty-copy">完成一次排盘后，可以在这里回看。</text>
+  </view>
+</view>

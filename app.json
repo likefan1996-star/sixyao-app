@@ -1,14 +1,21 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/result/result"
+    "pages/result/result",
+    "pages/history/history"
   ],
   "window": {
     "navigationBarTitleText": "周易六爻",
-    "navigationBarBackgroundColor": "#2c1810",
-    "navigationBarTextStyle": "white",
-    "backgroundColor": "#f5efe6"
+    "navigationBarBackgroundColor": "#f5f5f7",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f5f5f7"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "privacyDeclaration": {
+    "appid": "wxc77b90e693725522",
+    "version": "2026-05-01",
+    "updateTime": 1746057600,
+    "content": "docs/privacy.md"
+  }
 }
